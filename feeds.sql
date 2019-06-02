@@ -1,108 +1,32 @@
-/*
-  feeds.sql
-  
-  @author Sekllan ChenRuan
-  @version 1
-  
-*/
-
-#Drop table if exist---------------------------
-DROP TABLE IF EXISTS sp19_newscategories;
-DROP TABLE IF EXISTS sp19_feeds;
-DROP TABLE IF EXISTS sp19_feedlinks;
-
-#sp19_newscategories table create  -------------
-CREATE TABLE sp19_newscategories(
-CategoryID INT UNSIGNED NOT NULL AUTO_INCREMENT,
-Title VARCHAR(255) DEFAULT '',
-PRIMARY KEY (CategoryID)
-)ENGINE=INNODB; 
-
-#insert category title into sp19_newscategories
-INSERT INTO sp19_newscategories VALUES 
-(NULL,1,'Seattle Entertainment');
-INSERT INTO sp19_newscategories VALUES
-(NULL,2,'Seattle Sports News'); 
-INSERT INTO sp19_newscategories VALUES
-(NULL,3,'Seattle Movie Scene'); 
-
-
-#sp19_feeds table create ------------------------
-CREATE TABLE sp19_feeds(
-FeedID INT UNSIGNED NOT NULL AUTO_INCREMENT,
-CategoryID INT UNSIGNED DEFAULT 0,
-Title TEXT DEFAULT '',
-PRIMARY KEY (FeedID)
-CONSTRAINT sp19_feeds_ibfk_1
-FOREIGN KEY (CategoryID) REFERENCES sp19_newscategories(CategoryID) ON DELETE CASCADE
-)ENGINE=INNODB;
-
-#insert feeds -----------------------------------
-INSERT INTO sp19_feeds VALUES 
-(NULL, 1, ' ');
-INSERT INTO sp19_feeds VALUES 
-(NULL, 1, ' ');
-INSERT INTO sp19_feeds VALUES 
-(NULL, 1, ' ');
-INSERT INTO sp19_feeds VALUES 
-(NULL, 2, ' ');
-INSERT INTO sp19_feeds VALUES 
-(NULL, 2, ' ');
-INSERT INTO sp19_feeds VALUES 
-(NULL, 2, ' ');
-INSERT INTO sp19_feeds VALUES 
-(NULL, 3, ' ');
-INSERT INTO sp19_feeds VALUES 
-(NULL, 3, ' ');
-INSERT INTO sp19_feeds VALUES 
-(NULL, 3, ' ');
-
-#sp19_feedlinks table create --------------------
-CREATE TABLE sp19_feedlinks (
-  linkID int(10) unsigned NOT NULL AUTO_INCREMENT,
-  FeedID int(10) unsigned DEFAULT '0',
-  feedlink varchar(255) DEFAULT '',
-  PRIMARY KEY (linkID),
-  KEY FeedI (FeedID),
-  CONSTRAINT sp19_feedlinks_ibfk_1 FOREIGN KEY (FeedID) REFERENCES sp19_feeds (FeedID) ON DELETE CASCADE
-) ENGINE=InnoDB;
-
-#insert links ------------------------------------
-/* VALUES NuLL, FeedID, feedlink */
-INSERT INTO sp19_feedlinks VALUES (NULL, 1, ' ');
-INSERT INTO sp19_feedlinks VALUES (NULL, 1, ' ');
-INSERT INTO sp19_feedlinks VALUES (NULL, 1, ' ');
-INSERT INTO sp19_feedlinks VALUES (NULL, 1, ' ');
-INSERT INTO sp19_feedlinks VALUES (NULL, 1, ' ');
-INSERT INTO sp19_feedlinks VALUES (NULL, 1, ' ');
-INSERT INTO sp19_feedlinks VALUES (NULL, 1, ' ');
-INSERT INTO sp19_feedlinks VALUES (NULL, 1, ' ');
-INSERT INTO sp19_feedlinks VALUES (NULL, 1, ' ');
-INSERT INTO sp19_feedlinks VALUES (NULL, 1, ' ');
-INSERT INTO sp19_feedlinks VALUES (NULL, 1, ' ');
-INSERT INTO sp19_feedlinks VALUES (NULL, 1, ' ');
-INSERT INTO sp19_feedlinks VALUES (NULL, 1, ' ');
-INSERT INTO sp19_feedlinks VALUES (NULL, 1, ' ');
-INSERT INTO sp19_feedlinks VALUES (NULL, 1, ' ');
-INSERT INTO sp19_feedlinks VALUES (NULL, 1, ' ');
-INSERT INTO sp19_feedlinks VALUES (NULL, 1, ' ');
-INSERT INTO sp19_feedlinks VALUES (NULL, 1, ' ');
-INSERT INTO sp19_feedlinks VALUES (NULL, 1, ' ');
-INSERT INTO sp19_feedlinks VALUES (NULL, 1, ' ');
-INSERT INTO sp19_feedlinks VALUES (NULL, 1, ' ');
-INSERT INTO sp19_feedlinks VALUES (NULL, 1, ' ');
-INSERT INTO sp19_feedlinks VALUES (NULL, 1, ' ');
-INSERT INTO sp19_feedlinks VALUES (NULL, 1, ' ');
-INSERT INTO sp19_feedlinks VALUES (NULL, 1, ' ');
-INSERT INTO sp19_feedlinks VALUES (NULL, 1, ' ');
-INSERT INTO sp19_feedlinks VALUES (NULL, 1, ' ');
-INSERT INTO sp19_feedlinks VALUES (NULL, 1, ' ');
-INSERT INTO sp19_feedlinks VALUES (NULL, 1, ' ');
-INSERT INTO sp19_feedlinks VALUES (NULL, 1, ' ');
-/*
-insert more links here
-
-
-*/
-
-
+SET NAMES utf8;
+SET time_zone = '+00:00';
+SET foreign_key_checks = 0;
+SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
+DROP TABLE IF EXISTS `sp19_newscategories`;
+CREATE TABLE `sp19_newscategories` (
+  `categoryID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `categoryName` varchar(120) DEFAULT NULL,
+  PRIMARY KEY (`categoryID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `sp19_newscategories` (`categoryID`, `categoryName`) VALUES
+(1, 'Entertainment'),
+(2, 'Sports News and Events'),
+(3, 'Movie News and Listings');
+DROP TABLE IF EXISTS `sp19_feeds`;
+CREATE TABLE `sp19_feeds` (
+  `feedName` varchar(255) NOT NULL,
+  `feedID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `categoryID` int(11) DEFAULT '0',
+  `feedUrl` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`feedID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `sp19_feeds` (`feedName`, `feedID`, `categoryID`, `feedUrl`) VALUES
+('Dance',   1,  1,  'seattle+dance'),
+('Theater',  2,  1,  'seattle+theater'),
+('Music', 3,  1,  'seattle+music'),
+('Seattle Sports News',    4,  2,  'seattle+sports'),
+('USA Today Sports News', 5,  2,  'usatoday+sports+news'),
+('ESPN Sports News', 6,  2,  'espn+sports+news'),
+('Seattle Movie Scene', 7,  3,  'seattle+movies'),
+('Movie News', 8,  3,  'movies+news'),
+('Top 10 movies', 9, 3,  'top10movies');
