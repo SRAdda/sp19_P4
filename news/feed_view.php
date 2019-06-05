@@ -1,10 +1,8 @@
 <?php 
 require 'include/feed.php';
 require '../inc_0700/config_inc.php'; #provides configuration, pathing, error handling, db credentials
-startSession(); //wrapper for session_start()
-//session_destroy();
-//die();
-# '../' works for a sub-folder.  use './' for the root  
+
+
 //adds font awesome icons for arrows on pager
 $config->loadhead .= '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">';
 $config->loadhead .= '<link rel="stylesheet" href="../css/celurean-new.css">';
@@ -26,7 +24,7 @@ $config->loadhead .= '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/
 
 
 $Feed = new feed($myID); // create feed object
-$feedresult = $Feed->getFeed(); //Creates the feed view
+
 
 get_header(); #defaults to header_inc.php
     
@@ -39,7 +37,8 @@ get_header(); #defaults to header_inc.php
     ?>
 </h1>
 
-<?php    
+<?php   
+$feedresult = $Feed->getFeed(); //Creates the feed view
 //show feed
 echo $feedresult['result']; 
 get_footer(); #defaults to footer_inc.php
