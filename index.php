@@ -27,7 +27,7 @@ require '../inc_0700/config_inc.php'; #provides configuration, pathing, error ha
 $sql = "select FeedName, FeedID, FeedUrl from sp19_feeds";
 
 #Fills <title> tag. If left empty will default to $PageTitle in config_inc.php  
-$config->titleTag = 'Muffins made with love & PHP in Seattle';
+$config->titleTag = 'P4 News Feeds';
 
 #Fills <meta> tags.  Currently we're adding to the existing meta tags in config_inc.php
 $config->metaDescription = 'Seattle Central\'s ITC280 Class Muffins are made with pure PHP! ' . $config->metaDescription;
@@ -51,8 +51,12 @@ $config->nav1 = array("page.php"=>"New Page!") + $config->nav1; #add a new page 
 
 # END CONFIG AREA ---------------------------------------------------------- 
 
+
+
+
 get_header(); #defaults to theme header or header_inc.php
 ?>
+
 <h3 align="center">News Categories Page</h3>
 
 <p>This is our list page of News feed categories</p> 
@@ -78,8 +82,7 @@ if(mysqli_num_rows($result) > 0)
     echo '<div align="center">We have ' . $myPager->showTotal() . ' ' . $itemz . '!</div>';
 	while($row = mysqli_fetch_assoc($result))
 	{# process each row
-         echo '<div align="center"><a href="' . VIRTUAL_PATH . 'news/demo.php?id=' . (int)$row['FeedID'] . '">' . dbOut($row['FeedName']) . '</a>';
-         echo ' <i>only</i> <font color="red">$' . number_format((float)$row['FeedUrl'],2)  . '</font></div>';
+         echo '<div align="center"><a href="' . VIRTUAL_PATH . 'news/feeds.php?id=' . (int)$row['FeedID'] . '">' . dbOut($row['FeedName']) . '</a>';
 	}
 	echo $myPager->showNAV(); # show paging nav, only if enough records	 
 }else{#no records
@@ -87,5 +90,6 @@ if(mysqli_num_rows($result) > 0)
 }
 @mysqli_free_result($result);
 
-get_footer(); #defaults to theme footer or footer_inc.php
+
+get_footer(); #defaults to theme footer or footer_inc.php  
 ?>
